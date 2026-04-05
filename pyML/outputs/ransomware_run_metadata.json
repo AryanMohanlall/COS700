@@ -1,0 +1,34 @@
+{
+  "csv_path": "..\\Datasets\\Ransomware.csv",
+  "delimiter": "|",
+  "target_column": "legitimate",
+  "dropped_identifier_columns": [
+    "Name",
+    "md5"
+  ],
+  "dropped_all_nan_columns": [],
+  "dropped_constant_columns": [],
+  "rows": 138047,
+  "usable_numeric_features": 54,
+  "class_balance": {
+    "benign_0": 41323,
+    "ransomware_1": 96724
+  },
+  "sampled_rows": 20000,
+  "selectors": [
+    "baseline",
+    "mutual_info",
+    "f_classif",
+    "l1"
+  ],
+  "classifiers": [
+    "logistic",
+    "random_forest"
+  ],
+  "k_values": [
+    10,
+    20
+  ],
+  "folds": 3,
+  "random_state": 42
+}
