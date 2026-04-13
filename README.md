@@ -1,120 +1,115 @@
-# COS700
+# COS700 Ransomware Feature-Selection Benchmark
 
-Feature-selection benchmark tooling for the ransomware datasets in [`Datasets`](C:\Users\Aryan\Documents\Personal\COS700\Datasets).
+## Setup
 
-## What The Benchmark Does
-
-The benchmark is designed for the main research question:
-
-"Which feature-selection method finds a small, stable, high-value subset of features for ransomware detection?"
-
-It:
-
-- loads either ransomware CSV in this repo
-- auto-detects the label column
-- converts the task to binary detection: ransomware vs benign
-- drops likely identifier or leakage columns
-- keeps numeric features
-- benchmarks multiple feature-selection methods inside cross-validation
-- evaluates the selected features with fixed classifiers
-- exports both model results and selected-feature frequencies
-
-## Supported Datasets
-
-- [`Datasets/Ransomware.csv`](\Datasets\Ransomware.csv)
-  - pipe-delimited PE malware feature dataset
-  - label column: `legitimate`
-  - mapped to `ransomware=1`, `benign=0`
-- [`Datasets/Android_Ransomeware.csv`](\Datasets\Android_Ransomeware.csv)
-  - comma-delimited Android/network-flow dataset
-  - label column: `Label`
-  - mapped to `ransomware=1`, `Benign=0`
-
-## Python Dependencies
-
-Create and activate a virtual environment first:
+From the repository root:
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
+python -m venv pyML\.venv
+pyML\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install pandas numpy scikit-learn
 ```
 
 If PowerShell blocks activation, run:
 
 ```powershell
 Set-ExecutionPolicy -Scope Process Bypass
-.\.venv\Scripts\Activate.ps1
+pyML\.venv\Scripts\Activate.ps1
 ```
 
-Then install the required packages:
-
-```powershell
-python -m pip install --upgrade pip
-python -m pip install pandas numpy scikit-learn
-```
-
-If you want to compare against XGBoost as well, install:
+Optional XGBoost support:
 
 ```powershell
 python -m pip install xgboost
 ```
 
-## Main Script
-
-Use [`benchmark_feature_selection.py`](C:\Users\Aryan\Documents\Personal\COS700\benchmark_feature_selection.py).
-
-## Example Runs
-
-Run against the PE ransomware dataset:
+You can also run the script directly with the virtualenv interpreter:
 
 ```powershell
-python benchmark_feature_selection.py --csv "Datasets\Ransomware.csv" --output-dir "outputs\ransomware_pe"
+pyML\.venv\Scripts\python.exe pyML\benchmark_feature_selection.py --help
 ```
 
-Run against the Android ransomware dataset:
+## Usage
+
+Run the PE ransomware dataset:
 
 ```powershell
-python benchmark_feature_selection.py --csv "Datasets\Android_Ransomeware.csv" --output-dir "outputs\android"
+python pyML\benchmark_feature_selection.py --csv "Datasets\Ransomware.csv" --output-dir "outputs\ransomware_pe"
 ```
 
-Use a stratified sample for quicker iteration:
+Run the Android ransomware dataset:
 
 ```powershell
-python benchmark_feature_selection.py --csv "Datasets\Android_Ransomeware.csv" --output-dir "outputs\android_sample" --sample-size 50000
+python pyML\benchmark_feature_selection.py --csv "Datasets\Android_Ransomeware.csv" --output-dir "outputs\android"
 ```
 
-Compare multiple classifiers on the same feature selectors:
+Run a quicker sampled experiment:
 
 ```powershell
-python benchmark_feature_selection.py --csv "Datasets\Ransomware.csv" --output-dir "outputs\compare_models" --sample-size 20000 --folds 3 --selectors baseline mutual_info f_classif l1 --k-values 10 20 --classifiers logistic random_forest svm knn xgboost
+python pyML\benchmark_feature_selection.py --csv "Datasets\Android_Ransomeware.csv" --output-dir "outputs\android_sample" --sample-size 50000
 ```
 
-Include the more expensive wrapper method:
+Compare selected feature methods and models:
 
 ```powershell
-python benchmark_feature_selection.py --csv "Datasets\Ransomware.csv" --output-dir "outputs\ransomware_with_rfe" --selectors baseline mutual_info f_classif l1 random_forest rfe
+python pyML\benchmark_feature_selection.py --csv "Datasets\Ransomware.csv" --output-dir "outputs\compare_models" --sample-size 20000 --folds 3 --selectors baseline mutual_info f_classif l1 random_forest --k-values 10 20 --classifiers logistic random_forest svm knn
 ```
+
+Include XGBoost after installing it:
+
+```powershell
+python pyML\benchmark_feature_selection.py --csv "Datasets\Ransomware.csv" --output-dir "outputs\xgboost_compare" --sample-size 20000 --folds 3 --selectors baseline f_classif l1 random_forest --k-values 10 20 --classifiers logistic random_forest xgboost
+```
+
+Include the more expensive RFE wrapper method:
+
+```powershell
+python pyML\benchmark_feature_selection.py --csv "Datasets\Ransomware.csv" --output-dir "outputs\ransomware_with_rfe" --selectors baseline mutual_info f_classif l1 random_forest rfe
+```
+
+## Command Options
+
+- `--csv`
+  - required path to the input dataset
+- `--output-dir`
+  - output folder for reports, charts, CSVs, and metadata
+- `--selectors`
+  - feature-selection methods to benchmark
+  - supported: `baseline`, `mutual_info`, `f_classif`, `l1`, `random_forest`, `rfe`
+- `--classifiers`
+  - classifiers used to evaluate selected features
+  - supported: `logistic`, `random_forest`, `svm`, `knn`, `xgboost`
+- `--k-values`
+  - feature subset sizes to test, for example `10 20 30 50`
+- `--folds`
+  - number of stratified cross-validation folds
+- `--sample-size`
+  - optional stratified sample size for faster test runs
+- `--benign-label`
+  - label value treated as benign for multi-class datasets
+- `--target-column`
+  - manual target-column override if auto-detection is wrong
+- `--random-state`
+  - random seed for reproducible splits and sampling
 
 ## Output Files
 
-Each run writes:
+Each run writes files using the input dataset name as a prefix. For `Ransomware.csv`, outputs look like:
 
-- `benchmark_results.csv`
-  - mean and standard deviation of F1, precision, recall, ROC-AUC, PR-AUC, runtime, and selected-feature count
-- `selected_feature_frequencies.csv`
-  - how often each feature was selected across folds for each configuration
-- `run_metadata.json`
-  - dataset info, dropped columns, and benchmark settings
+- `ransomware_benchmark_report.md`
+  - start here; readable report with a recommendation, leaderboard, baseline comparison, and stable features
+- `ransomware_leaderboard_f1.svg`
+  - visual chart of the top selector/model combinations by F1 score
+- `ransomware_top_features.svg`
+  - visual chart of the most consistently selected features for the best configuration
+- `ransomware_benchmark_results.csv`
+  - metrics for every selector/classifier/k combination
+- `ransomware_selected_feature_frequencies.csv`
+  - how often each feature was selected across folds
+- `ransomware_run_metadata.json`
+  - dataset details, dropped columns, selected settings, and class balance
+- `ransomware_benchmark_summary.txt`
+  - console-style text summary
 
-## Suggested Research Workflow
-
-1. Run a smaller sampled benchmark first to narrow the selector list.
-2. Re-run the strongest selectors on the full dataset.
-3. Compare:
-   - F1
-   - recall
-   - PR-AUC
-   - number of selected features
-   - stability of selected features
-4. Use `selected_feature_frequencies.csv` to identify the most consistently valuable ransomware features.
-5. In your report, discuss both predictive quality and feature stability.
+To make a PDF, open `*_benchmark_report.md` in an editor or browser that renders Markdown, then print or export it as a PDF. The SVG charts are saved in the same output folder and referenced by the report.
