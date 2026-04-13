@@ -68,6 +68,12 @@ Include the more expensive RFE wrapper method:
 python pyML\benchmark_feature_selection.py --csv "Datasets\Ransomware.csv" --output-dir "outputs\ransomware_with_rfe" --selectors baseline mutual_info f_classif l1 random_forest rfe
 ```
 
+Latest run
+
+```powershell
+pyML\.venv\Scripts\python.exe pyML\benchmark_feature_selection.py --csv "Datasets\Ransomware.csv" --output-dir "outputs\quick_all_models_ransomware" --sample-size 5000 --folds 3 --selectors baseline mutual_info f_classif l1 random_forest --k-values 10 20 --classifiers logistic random_forest svm knn xgboost
+```
+
 ## Command Options
 
 - `--csv`

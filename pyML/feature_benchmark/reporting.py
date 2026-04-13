@@ -202,9 +202,6 @@ def build_recommendation(results_df: pd.DataFrame) -> str:
 
     return (
         f"Highest F1: **{label_configuration(best)}** with F1={fmt_float(best['mean_f1'])}. "
-        f"For a smaller feature set within 0.002 F1 of the best score, consider "
-        f"**{label_configuration(compact)}** with F1={fmt_float(compact['mean_f1'])} and "
-        f"about {fmt_float(compact['mean_selected_feature_count'], 1)} features."
     )
 
 
@@ -239,14 +236,8 @@ def write_markdown_report(
 
     lines = [
         f"# Feature Selection Benchmark Report: {Path(metadata['csv_path']).name}",
-        "",
-        "## Plain-English Summary",
-        "",
+        "",        "",
         build_recommendation(results_df),
-        "",
-        "This benchmark compares feature-selection methods for ransomware detection. "
-        "Higher F1 means a better balance between catching ransomware and avoiding false alarms. "
-        "Recall is especially important when missing ransomware is costly. PR-AUC is useful when the classes are imbalanced.",
         "",
         "## Dataset And Run",
         "",
@@ -313,12 +304,6 @@ def write_markdown_report(
                     ("Stability", "Selected in"),
                 ],
             ),
-            "",
-            "## How To Read This",
-            "",
-            "- Prefer a selector that keeps F1 and recall high while using fewer features than the baseline.",
-            "- Features that appear in every fold are more stable and easier to defend in a research write-up.",
-            "- If two rows have nearly identical F1, the row with fewer features is usually easier to explain.",
             "",
         ]
     )
