@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="438" viewBox="0 0 920 438">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="24" y="34" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111111">Most recurring features in the best configuration</text>
+<text x="24" y="85" font-family="Arial, sans-serif" font-size="14" fill="#222222">AddressOfEntryPoint</text>
+<rect x="290" y="69" width="510.00" height="21" rx="4" fill="#2166ac"/>
+<text x="810.0" y="85" font-family="Arial, sans-serif" font-size="14" fill="#111111">3 fold(s)</text>
+<text x="24" y="119" font-family="Arial, sans-serif" font-size="14" fill="#222222">BaseOfCode</text>
+<rect x="290" y="103" width="510.00" height="21" rx="4" fill="#b2182b"/>
+<text x="810.0" y="119" font-family="Arial, sans-serif" font-size="14" fill="#111111">3 fold(s)</text>
+<text x="24" y="153" font-family="Arial, sans-serif" font-size="14" fill="#222222">BaseOfData</text>
+<rect x="290" y="137" width="510.00" height="21" rx="4" fill="#1b7837"/>
+<text x="810.0" y="153" font-family="Arial, sans-serif" font-size="14" fill="#111111">3 fold(s)</text>
+<text x="24" y="187" font-family="Arial, sans-serif" font-size="14" fill="#222222">Characteristics</text>
+<rect x="290" y="171" width="510.00" height="21" rx="4" fill="#762a83"/>
+<text x="810.0" y="187" font-family="Arial, sans-serif" font-size="14" fill="#111111">3 fold(s)</text>
+<text x="24" y="221" font-family="Arial, sans-serif" font-size="14" fill="#222222">CheckSum</text>
+<rect x="290" y="205" width="510.00" height="21" rx="4" fill="#9970ab"/>
+<text x="810.0" y="221" font-family="Arial, sans-serif" font-size="14" fill="#111111">3 fold(s)</text>
+<text x="24" y="255" font-family="Arial, sans-serif" font-size="14" fill="#222222">DllCharacteristics</text>
+<rect x="290" y="239" width="510.00" height="21" rx="4" fill="#5aae61"/>
+<text x="810.0" y="255" font-family="Arial, sans-serif" font-size="14" fill="#111111">3 fold(s)</text>
+<text x="24" y="289" font-family="Arial, sans-serif" font-size="14" fill="#222222">ExportNb</text>
+<rect x="290" y="273" width="510.00" height="21" rx="4" fill="#2166ac"/>
+<text x="810.0" y="289" font-family="Arial, sans-serif" font-size="14" fill="#111111">3 fold(s)</text>
+<text x="24" y="323" font-family="Arial, sans-serif" font-size="14" fill="#222222">FileAlignment</text>
+<rect x="290" y="307" width="510.00" height="21" rx="4" fill="#b2182b"/>
+<text x="810.0" y="323" font-family="Arial, sans-serif" font-size="14" fill="#111111">3 fold(s)</text>
+<text x="24" y="357" font-family="Arial, sans-serif" font-size="14" fill="#222222">ImageBase</text>
+<rect x="290" y="341" width="510.00" height="21" rx="4" fill="#1b7837"/>
+<text x="810.0" y="357" font-family="Arial, sans-serif" font-size="14" fill="#111111">3 fold(s)</text>
+<text x="24" y="391" font-family="Arial, sans-serif" font-size="14" fill="#222222">ImportsNb</text>
+<rect x="290" y="375" width="510.00" height="21" rx="4" fill="#762a83"/>
+<text x="810.0" y="391" font-family="Arial, sans-serif" font-size="14" fill="#111111">3 fold(s)</text>
+</svg>

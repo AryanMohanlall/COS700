@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="370" viewBox="0 0 920 370">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="24" y="34" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111111">Top configurations by F1 score</text>
+<text x="24" y="85" font-family="Arial, sans-serif" font-size="14" fill="#222222">baseline + xgboost (k=all)</text>
+<rect x="290" y="69" width="510.00" height="21" rx="4" fill="#2166ac"/>
+<text x="810.0" y="85" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9940</text>
+<text x="24" y="119" font-family="Arial, sans-serif" font-size="14" fill="#222222">f_classif + random_forest (k=20)</text>
+<rect x="290" y="103" width="509.95" height="21" rx="4" fill="#b2182b"/>
+<text x="809.9462762803191" y="119" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9939</text>
+<text x="24" y="153" font-family="Arial, sans-serif" font-size="14" fill="#222222">baseline + random_forest (k=all)</text>
+<rect x="290" y="137" width="509.82" height="21" rx="4" fill="#1b7837"/>
+<text x="809.8178696218486" y="153" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9936</text>
+<text x="24" y="187" font-family="Arial, sans-serif" font-size="14" fill="#222222">random_forest + xgboost (k=20)</text>
+<rect x="290" y="171" width="509.80" height="21" rx="4" fill="#762a83"/>
+<text x="809.8004262528134" y="187" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9936</text>
+<text x="24" y="221" font-family="Arial, sans-serif" font-size="14" fill="#222222">f_classif + xgboost (k=20)</text>
+<rect x="290" y="205" width="509.74" height="21" rx="4" fill="#9970ab"/>
+<text x="809.7443899172813" y="221" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9935</text>
+<text x="24" y="255" font-family="Arial, sans-serif" font-size="14" fill="#222222">random_forest + random_forest (k=20)</text>
+<rect x="290" y="239" width="509.67" height="21" rx="4" fill="#5aae61"/>
+<text x="809.6722353331446" y="255" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9934</text>
+<text x="24" y="289" font-family="Arial, sans-serif" font-size="14" fill="#222222">mutual_info + xgboost (k=20)</text>
+<rect x="290" y="273" width="509.52" height="21" rx="4" fill="#2166ac"/>
+<text x="809.5234723647033" y="289" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9931</text>
+<text x="24" y="323" font-family="Arial, sans-serif" font-size="14" fill="#222222">mutual_info + random_forest (k=20)</text>
+<rect x="290" y="307" width="509.41" height="21" rx="4" fill="#b2182b"/>
+<text x="809.4149128796265" y="323" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9929</text>
+</svg>

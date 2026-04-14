@@ -1,0 +1,59 @@
+Finished selector=baseline classifier=random_forest k=all mean_f1=0.9936 features=54.0
+Finished selector=baseline classifier=xgboost k=all mean_f1=0.9940 features=54.0
+Finished selector=mutual_info classifier=random_forest k=20 mean_f1=0.9929 features=20.0
+Finished selector=mutual_info classifier=xgboost k=20 mean_f1=0.9931 features=20.0
+Finished selector=random_forest classifier=random_forest k=20 mean_f1=0.9934 features=20.0
+Finished selector=random_forest classifier=xgboost k=20 mean_f1=0.9936 features=20.0
+Finished selector=f_classif classifier=random_forest k=20 mean_f1=0.9939 features=20.0
+Finished selector=f_classif classifier=xgboost k=20 mean_f1=0.9935 features=20.0
+
+Run overview
+- dataset=Ransomware.csv, rows=20000, features=54, benign=5987, ransomware=14013
+- selectors=baseline, mutual_info, random_forest, f_classif, models=random_forest, xgboost, folds=3, k_values=20
+
+Quick recommendation
+Highest F1: baseline + xgboost (k=all) with F1=0.9940. 
+
+Leaderboard
+     selector         model   k     f1 f1_std precision recall pr_auc   fit_s features
+     baseline       xgboost all 0.9940 0.0004    0.9943 0.9937 0.9998  0.7478  54.0000
+    f_classif random_forest  20 0.9939 0.0006    0.9938 0.9940 0.9996  1.2981  20.0000
+     baseline random_forest all 0.9936 0.0005    0.9936 0.9936 0.9996  1.4050  54.0000
+random_forest       xgboost  20 0.9936 0.0002    0.9934 0.9939 0.9997  1.8793  20.0000
+    f_classif       xgboost  20 0.9935 0.0004    0.9936 0.9934 0.9996  0.6803  20.0000
+random_forest random_forest  20 0.9934 0.0005    0.9932 0.9936 0.9995  2.1880  20.0000
+  mutual_info       xgboost  20 0.9931 0.0005    0.9935 0.9926 0.9996  2.0691  20.0000
+  mutual_info random_forest  20 0.9929 0.0001    0.9929 0.9928 0.9996 15.6377  20.0000
+
+Best per selector
+- baseline: selector=baseline, model=xgboost, k=all, f1=0.9940, features=54.0, fit_s=0.7478
+- f_classif: selector=f_classif, model=random_forest, k=20, f1=0.9939, features=20.0, fit_s=1.2981
+- random_forest: selector=random_forest, model=xgboost, k=20, f1=0.9936, features=20.0, fit_s=1.8793
+- mutual_info: selector=mutual_info, model=xgboost, k=20, f1=0.9931, features=20.0, fit_s=2.0691
+
+Best per model
+- xgboost: selector=baseline, model=xgboost, k=all, f1=0.9940, features=54.0, fit_s=0.7478
+- random_forest: selector=f_classif, model=random_forest, k=20, f1=0.9939, features=20.0, fit_s=1.2981
+
+Top recurring features for the best configuration
+Best configuration: selector=baseline, model=xgboost, k=all, f1=0.9940, features=54.0
+- AddressOfEntryPoint: selected in 3 fold(s)
+- BaseOfCode: selected in 3 fold(s)
+- BaseOfData: selected in 3 fold(s)
+- Characteristics: selected in 3 fold(s)
+- CheckSum: selected in 3 fold(s)
+- DllCharacteristics: selected in 3 fold(s)
+- ExportNb: selected in 3 fold(s)
+- FileAlignment: selected in 3 fold(s)
+- ImageBase: selected in 3 fold(s)
+- ImportsNb: selected in 3 fold(s)
+
+Readable report
+- Start here: outputs\ransomware_top_configs_20k\ransomware_benchmark_report.md
+- F1 chart: outputs\ransomware_top_configs_20k\ransomware_leaderboard_f1.svg
+- Stable-feature chart: outputs\ransomware_top_configs_20k\ransomware_top_features.svg
+
+Saved results to outputs\ransomware_top_configs_20k\ransomware_benchmark_results.csv
+Saved feature frequencies to outputs\ransomware_top_configs_20k\ransomware_selected_feature_frequencies.csv
+Saved metadata to outputs\ransomware_top_configs_20k\ransomware_run_metadata.json
+Saved summary to outputs\ransomware_top_configs_20k\ransomware_benchmark_summary.txt
