@@ -5,7 +5,14 @@ import pandas as pd
 
 from .data import load_dataset, maybe_sample
 from .modeling import benchmark_selector
-from .reporting import build_recommendation, chart_bar_svg, label_configuration, summarize_top_features, write_markdown_report
+from .reporting import (
+    build_recommendation,
+    chart_bar_svg,
+    label_configuration,
+    summarize_top_features,
+    write_markdown_report,
+    write_results_xlsx,
+)
 
 
 def run_benchmark(args):
@@ -88,8 +95,10 @@ def run_benchmark(args):
     metadata_path = output_dir / f"{file_stem}_run_metadata.json"
     report_path = output_dir / f"{file_stem}_benchmark_report.md"
     svg_path = output_dir / f"{file_stem}_fitness_score.svg"
+    xlsx_path = output_dir / f"{file_stem}_benchmark_results.xlsx"
 
     results_df.to_csv(results_path, index=False)
+    write_results_xlsx(xlsx_path, results_df)
     feature_df.to_csv(features_path, index=False)
     metadata_path.write_text(json.dumps(metadata, indent=2), encoding="utf-8")
     write_markdown_report(report_path, results_df, feature_df, metadata)
@@ -109,6 +118,7 @@ def run_benchmark(args):
     print(build_recommendation(results_df))
     print(summarize_top_features(feature_df, results_df))
     print(f"Saved results to {results_path}")
+    print(f"Saved Excel table to {xlsx_path}")
     print(f"Saved feature frequencies to {features_path}")
     print(f"Saved metadata to {metadata_path}")
     print(f"Saved report to {report_path}")

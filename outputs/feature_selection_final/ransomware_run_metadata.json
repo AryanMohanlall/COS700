@@ -14,11 +14,11 @@
   ],
   "dropped_all_nan_columns": [],
   "dropped_constant_columns": [],
-  "sampled_rows": 500,
-  "evaluated_rows": 500,
+  "sampled_rows": 1000,
+  "evaluated_rows": 1000,
   "evaluated_class_balance": {
-    "class_0": 150,
-    "class_1": 350
+    "class_0": 299,
+    "class_1": 701
   },
   "selectors": [
     "info_gain",
