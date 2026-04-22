@@ -13,7 +13,13 @@ It compares these feature-selection methods:
 - `backward_elimination`
 - `l1`
 
-Each selector is scored using:
+Each selector can be evaluated with these models:
+
+- `random_forest`
+- `svm`
+- `xgboost`
+
+Each selector-model combination is scored using:
 
 - `fitness_score`: mean cross-validated `F1` score
 - `time`: average selection time
@@ -45,6 +51,12 @@ If packages are missing, install them:
 python -m pip install pandas numpy scikit-learn
 ```
 
+If you want to use `xgboost`, also install:
+
+```powershell
+python -m pip install xgboost
+```
+
 ## Main command
 
 Run the feature-selection benchmark with:
@@ -54,6 +66,7 @@ pyML\.venv\Scripts\python.exe pyML\benchmark_feature_selection.py `
   --csv Datasets\Ransomware.csv `
   --output-dir outputs\feature_selection_final `
   --selectors info_gain variance_threshold chi2 forward_selection backward_elimination l1 `
+  --models random_forest svm xgboost `
   --k-values 5 10 20 `
   --folds 3 `
   --sample-size 500
@@ -64,6 +77,7 @@ pyML\.venv\Scripts\python.exe pyML\benchmark_feature_selection.py `
 - `--csv`: dataset to use
 - `--output-dir`: where results will be saved
 - `--selectors`: feature-selection algorithms to test
+- `--models`: models used to score each selector
 - `--k-values`: number of top features to keep
 - `--folds`: cross-validation folds
 - `--sample-size`: smaller sample for faster testing
@@ -73,6 +87,7 @@ pyML\.venv\Scripts\python.exe pyML\benchmark_feature_selection.py `
 After the run, check the output folder for:
 
 - `*_benchmark_results.csv`: main spreadsheet-friendly results
+- `*_benchmark_results.xlsx`: Excel version of the main results
 - `*_fitness_score.svg`: bar chart of top results
 - `*_selected_feature_frequencies.csv`: how often features were selected
 - `*_benchmark_report.md`: readable summary report
@@ -97,6 +112,7 @@ pyML\.venv\Scripts\python.exe pyML\benchmark_feature_selection.py `
   --csv Datasets\Ransomware.csv `
   --output-dir outputs\feature_selection_fast `
   --selectors info_gain variance_threshold chi2 forward_selection l1 `
+  --models random_forest svm `
   --k-values 5 10 20 `
   --folds 3 `
   --sample-size 500
@@ -111,6 +127,7 @@ pyML\.venv\Scripts\python.exe pyML\benchmark_feature_selection.py `
   --csv Datasets\Ransomware.csv `
   --output-dir outputs\feature_selection_backward_only `
   --selectors backward_elimination `
+  --models random_forest svm `
   --k-values 5 10 20 `
   --folds 3 `
   --sample-size 500

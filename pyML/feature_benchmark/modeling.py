@@ -5,6 +5,7 @@ import warnings
 
 import numpy as np
 import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectFromModel, SequentialFeatureSelector, VarianceThreshold, chi2, mutual_info_classif
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
@@ -12,6 +13,12 @@ from sklearn.metrics import f1_score
 from sklearn.model_selection import StratifiedKFold
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
+
+try:
+    from xgboost import XGBClassifier
+except ImportError:
+    XGBClassifier = None
 
 os.environ.setdefault("LOKY_MAX_CPU_COUNT", "1")
 
@@ -70,20 +77,46 @@ def _build_selection_estimator(random_state: int) -> Pipeline:
     )
 
 
-def _build_evaluation_estimator(random_state: int) -> Pipeline:
+def _make_model_estimator(model_name: str, random_state: int):
+    if model_name == "random_forest":
+        return RandomForestClassifier(
+            n_estimators=300,
+            class_weight="balanced_subsample",
+            n_jobs=-1,
+            random_state=random_state,
+        )
+    if model_name == "svm":
+        return SVC(
+            kernel="rbf",
+            class_weight="balanced",
+            probability=False,
+            random_state=random_state,
+        )
+    if model_name == "xgboost":
+        if XGBClassifier is None:
+            raise SystemExit(
+                "xgboost is not installed. Install it with:\n"
+                "  pyML\\.venv\\Scripts\\python.exe -m pip install xgboost"
+            )
+        return XGBClassifier(
+            n_estimators=300,
+            max_depth=6,
+            learning_rate=0.1,
+            subsample=0.8,
+            colsample_bytree=0.8,
+            objective="binary:logistic",
+            eval_metric="logloss",
+            random_state=random_state,
+        )
+    raise ValueError(f"Unsupported model: {model_name}")
+
+
+def _build_evaluation_estimator(model_name: str, random_state: int) -> Pipeline:
     return Pipeline(
         steps=[
             ("imputer", SimpleImputer(strategy="median")),
             ("scaler", StandardScaler()),
-            (
-                "logistic",
-                LogisticRegression(
-                    solver="liblinear",
-                    class_weight="balanced",
-                    max_iter=2000,
-                    random_state=random_state,
-                ),
-            ),
+            ("model", _make_model_estimator(model_name, random_state=random_state)),
         ]
     )
 
@@ -137,12 +170,13 @@ def select_via_estimator(
     y: pd.Series,
     selector_name: str,
     k: int,
+    model_name: str,
     random_state: int,
 ) -> list[str]:
     if k >= len(X.columns):
         return X.columns.tolist()
 
-    estimator = _build_selection_estimator(random_state=random_state)
+    estimator = _build_evaluation_estimator(model_name, random_state=random_state)
     candidate_columns = wrapper_candidate_columns(X, y, k, random_state=random_state)
     if k >= len(candidate_columns):
         return candidate_columns[:k]
@@ -221,6 +255,7 @@ def benchmark_selector(
     X: pd.DataFrame,
     y: pd.Series,
     selector_name: str,
+    model_name: str,
     k: int,
     folds: int,
     random_state: int,
@@ -242,21 +277,20 @@ def benchmark_selector(
         if selector_name in {"info_gain", "variance_threshold", "chi2"}:
             scores = compute_feature_scores(X_train, y_train, selector_name, random_state=random_state)
             selected_features = select_top_k(feature_names, scores, k)
-            selection_model = "n/a"
         else:
             selected_features = select_via_estimator(
                 X_train,
                 y_train,
                 selector_name,
                 k,
+                model_name,
                 random_state=random_state,
             )
-            selection_model = "logistic_regression"
         fold_times.append(perf_counter() - start)
 
         selected_sets.append(set(selected_features))
 
-        evaluator = _build_evaluation_estimator(random_state=random_state)
+        evaluator = _build_evaluation_estimator(model_name, random_state=random_state)
         evaluator.fit(X_train[selected_features], y_train)
         y_pred = evaluator.predict(X_test[selected_features])
         fold_f1_scores.append(f1_score(y_test, y_pred, zero_division=0))
@@ -265,6 +299,7 @@ def benchmark_selector(
             feature_rows.append(
                 {
                     "selector": selector_name,
+                    "model": model_name,
                     "k": k,
                     "fold": fold_index,
                     "feature": feature_name,
@@ -273,7 +308,7 @@ def benchmark_selector(
 
     result = {
         "selection_algorithm": selector_name,
-        "model": selection_model,
+        "model": model_name,
         "time": float(np.mean(fold_times)),
         "amount_of_features_chosen": float(k),
         "fitness_score": float(np.mean(fold_f1_scores)),

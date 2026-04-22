@@ -32,6 +32,7 @@ def run_benchmark(args):
         "class_1": int((y == 1).sum()),
     }
     metadata["selectors"] = args.selectors
+    metadata["models"] = args.models
     metadata["folds"] = args.folds
 
     max_k = X.shape[1]
@@ -44,21 +45,24 @@ def run_benchmark(args):
     selected_feature_rows = []
 
     for selector_name in args.selectors:
-        for k in k_values:
-            result, selected_features = benchmark_selector(
-                X=X,
-                y=y,
-                selector_name=selector_name,
-                k=k,
-                folds=args.folds,
-                random_state=args.random_state,
-            )
-            result_rows.append(result)
-            selected_feature_rows.extend(selected_features)
-            print(
-                f"Finished selector={selector_name} "
-                f"k={result['k']} stability={result['stability_jaccard']:.4f}"
-            )
+        for model_name in args.models:
+            for k in k_values:
+                result, selected_features = benchmark_selector(
+                    X=X,
+                    y=y,
+                    selector_name=selector_name,
+                    model_name=model_name,
+                    k=k,
+                    folds=args.folds,
+                    random_state=args.random_state,
+                )
+                result_rows.append(result)
+                selected_feature_rows.extend(selected_features)
+                print(
+                    f"Finished selector={selector_name} "
+                    f"model={model_name} k={result['k']} "
+                    f"stability={result['stability_jaccard']:.4f}"
+                )
 
     results_df = pd.DataFrame(result_rows).sort_values(
         by=["fitness_score", "amount_of_features_chosen", "time"],
@@ -78,16 +82,18 @@ def run_benchmark(args):
     feature_df = pd.DataFrame(selected_feature_rows)
     if not feature_df.empty:
         feature_df = (
-            feature_df.groupby(["selector", "k", "feature"])
+            feature_df.groupby(["selector", "model", "k", "feature"])
             .size()
             .reset_index(name="fold_selection_count")
             .sort_values(
-                by=["selector", "k", "fold_selection_count", "feature"],
-                ascending=[True, True, False, True],
+                by=["selector", "model", "k", "fold_selection_count", "feature"],
+                ascending=[True, True, True, False, True],
             )
         )
     else:
-        feature_df = pd.DataFrame(columns=["selector", "k", "feature", "fold_selection_count"])
+        feature_df = pd.DataFrame(
+            columns=["selector", "model", "k", "feature", "fold_selection_count"]
+        )
 
     file_stem = csv_path.stem.lower().replace(" ", "_")
     results_path = output_dir / f"{file_stem}_benchmark_results.csv"

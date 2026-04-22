@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="438" viewBox="0 0 920 438">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="24" y="34" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111111">Top configurations by fitness score (F1)</text>
+<text x="24" y="85" font-family="Arial, sans-serif" font-size="14" fill="#222222">variance_threshold + random_forest (k=20)</text>
+<rect x="300" y="69" width="500.00" height="21" rx="4" fill="#1f6feb"/>
+<text x="810.0" y="85" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9871</text>
+<text x="24" y="119" font-family="Arial, sans-serif" font-size="14" fill="#222222">chi2 + random_forest (k=20)</text>
+<rect x="300" y="103" width="499.96" height="21" rx="4" fill="#0f9d58"/>
+<text x="809.9620284314158" y="119" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9870</text>
+<text x="24" y="153" font-family="Arial, sans-serif" font-size="14" fill="#222222">variance_threshold + random_forest (k=10)</text>
+<rect x="300" y="137" width="499.26" height="21" rx="4" fill="#d97706"/>
+<text x="809.262840936067" y="153" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9856</text>
+<text x="24" y="187" font-family="Arial, sans-serif" font-size="14" fill="#222222">l1 + random_forest (k=10)</text>
+<rect x="300" y="171" width="497.95" height="21" rx="4" fill="#c2410c"/>
+<text x="807.9545931935677" y="187" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9830</text>
+<text x="24" y="221" font-family="Arial, sans-serif" font-size="14" fill="#222222">chi2 + random_forest (k=10)</text>
+<rect x="300" y="205" width="497.76" height="21" rx="4" fill="#7c3aed"/>
+<text x="807.7566353822227" y="221" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9827</text>
+<text x="24" y="255" font-family="Arial, sans-serif" font-size="14" fill="#222222">l1 + random_forest (k=20)</text>
+<rect x="300" y="239" width="497.23" height="21" rx="4" fill="#b91c1c"/>
+<text x="807.2279572994119" y="255" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9816</text>
+<text x="24" y="289" font-family="Arial, sans-serif" font-size="14" fill="#222222">info_gain + random_forest (k=10)</text>
+<rect x="300" y="273" width="497.20" height="21" rx="4" fill="#1f6feb"/>
+<text x="807.1993958690459" y="289" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9816</text>
+<text x="24" y="323" font-family="Arial, sans-serif" font-size="14" fill="#222222">chi2 + random_forest (k=5)</text>
+<rect x="300" y="307" width="497.11" height="21" rx="4" fill="#0f9d58"/>
+<text x="807.1075343465614" y="323" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9814</text>
+<text x="24" y="357" font-family="Arial, sans-serif" font-size="14" fill="#222222">info_gain + random_forest (k=20)</text>
+<rect x="300" y="341" width="496.51" height="21" rx="4" fill="#d97706"/>
+<text x="806.5109090252682" y="357" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9802</text>
+<text x="24" y="391" font-family="Arial, sans-serif" font-size="14" fill="#222222">info_gain + svm (k=5)</text>
+<rect x="300" y="375" width="496.38" height="21" rx="4" fill="#c2410c"/>
+<text x="806.3826274969872" y="391" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9799</text>
+</svg>

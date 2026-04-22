@@ -10,6 +10,12 @@ SELECTOR_CHOICES = [
     "l1",
 ]
 
+MODEL_CHOICES = [
+    "random_forest",
+    "svm",
+    "xgboost",
+]
+
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -27,6 +33,13 @@ def parse_args():
         default=SELECTOR_CHOICES,
         choices=SELECTOR_CHOICES,
         help="Feature-selection algorithms to benchmark.",
+    )
+    parser.add_argument(
+        "--models",
+        nargs="+",
+        default=MODEL_CHOICES,
+        choices=MODEL_CHOICES,
+        help="Models used to evaluate each selector.",
     )
     parser.add_argument(
         "--k-values",

@@ -14,19 +14,21 @@
   ],
   "dropped_all_nan_columns": [],
   "dropped_constant_columns": [],
-  "sampled_rows": 1000,
-  "evaluated_rows": 1000,
+  "sampled_rows": 500,
+  "evaluated_rows": 500,
   "evaluated_class_balance": {
-    "class_0": 299,
-    "class_1": 701
+    "class_0": 150,
+    "class_1": 350
   },
   "selectors": [
     "info_gain",
     "variance_threshold",
     "chi2",
-    "forward_selection",
-    "backward_elimination",
     "l1"
+  ],
+  "models": [
+    "random_forest",
+    "svm"
   ],
   "folds": 3,
   "k_values": [

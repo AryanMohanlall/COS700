@@ -14,7 +14,7 @@ def _format_score(value) -> str:
 
 
 def label_configuration(row: pd.Series) -> str:
-    return f"{row['selection_algorithm']} (k={row['k']})"
+    return f"{row['selection_algorithm']} + {row['model']} (k={row['k']})"
 
 
 def build_recommendation(results_df: pd.DataFrame) -> str:
@@ -52,6 +52,7 @@ def summarize_top_features(feature_df: pd.DataFrame, results_df: pd.DataFrame, t
     best = results_df.iloc[0]
     filtered = feature_df[
         (feature_df["selector"] == best["selection_algorithm"])
+        & (feature_df["model"] == best["model"])
         & (feature_df["k"].astype(str) == str(best["k"]))
     ].sort_values(by=["fold_selection_count", "feature"], ascending=[False, True])
 
@@ -85,6 +86,7 @@ def write_markdown_report(
         f"- Class 1 count: **{metadata['evaluated_class_balance']['class_1']:,}**",
         f"- Folds: **{metadata['folds']}**",
         f"- Selectors: **{', '.join(metadata['selectors'])}**",
+        f"- Models: **{', '.join(metadata['models'])}**",
         f"- k values: **{', '.join(str(k) for k in metadata['k_values'])}**",
         "",
         "## Top Results",
