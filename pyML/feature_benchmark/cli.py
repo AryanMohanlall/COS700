@@ -5,6 +5,9 @@ SELECTOR_CHOICES = [
     "variance_threshold",
     "chi2",
     "info_gain",
+    "forward_selection",
+    "backward_elimination",
+    "l1",
 ]
 
 

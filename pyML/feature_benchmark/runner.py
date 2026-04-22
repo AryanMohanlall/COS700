@@ -5,7 +5,7 @@ import pandas as pd
 
 from .data import load_dataset, maybe_sample
 from .modeling import benchmark_selector
-from .reporting import build_recommendation, summarize_top_features, write_markdown_report
+from .reporting import build_recommendation, chart_bar_svg, label_configuration, summarize_top_features, write_markdown_report
 
 
 def run_benchmark(args):
@@ -54,9 +54,19 @@ def run_benchmark(args):
             )
 
     results_df = pd.DataFrame(result_rows).sort_values(
-        by=["stability_jaccard", "mean_selected_feature_count", "mean_fit_seconds"],
+        by=["fitness_score", "amount_of_features_chosen", "time"],
         ascending=[False, True, True],
     )
+    ordered_columns = [
+        "time",
+        "amount_of_features_chosen",
+        "model",
+        "selection_algorithm",
+        "fitness_score",
+        "stability_jaccard",
+        "k",
+    ]
+    results_df = results_df[ordered_columns]
 
     feature_df = pd.DataFrame(selected_feature_rows)
     if not feature_df.empty:
@@ -77,11 +87,18 @@ def run_benchmark(args):
     features_path = output_dir / f"{file_stem}_selected_feature_frequencies.csv"
     metadata_path = output_dir / f"{file_stem}_run_metadata.json"
     report_path = output_dir / f"{file_stem}_benchmark_report.md"
+    svg_path = output_dir / f"{file_stem}_fitness_score.svg"
 
     results_df.to_csv(results_path, index=False)
     feature_df.to_csv(features_path, index=False)
     metadata_path.write_text(json.dumps(metadata, indent=2), encoding="utf-8")
     write_markdown_report(report_path, results_df, feature_df, metadata)
+    chart_bar_svg(
+        labels=[label_configuration(row) for _, row in results_df.head(10).iterrows()],
+        values=results_df.head(10)["fitness_score"].tolist(),
+        title="Top configurations by fitness score (F1)",
+        output_path=svg_path,
+    )
 
     print("")
     print("Run overview")
@@ -95,3 +112,4 @@ def run_benchmark(args):
     print(f"Saved feature frequencies to {features_path}")
     print(f"Saved metadata to {metadata_path}")
     print(f"Saved report to {report_path}")
+    print(f"Saved chart to {svg_path}")

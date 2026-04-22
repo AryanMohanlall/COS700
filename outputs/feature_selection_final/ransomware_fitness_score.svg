@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="438" viewBox="0 0 920 438">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="24" y="34" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111111">Top configurations by fitness score (F1)</text>
+<text x="24" y="85" font-family="Arial, sans-serif" font-size="14" fill="#222222">l1 (k=10)</text>
+<rect x="300" y="69" width="500.00" height="21" rx="4" fill="#1f6feb"/>
+<text x="810.0" y="85" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9799</text>
+<text x="24" y="119" font-family="Arial, sans-serif" font-size="14" fill="#222222">forward_selection (k=10)</text>
+<rect x="300" y="103" width="498.56" height="21" rx="4" fill="#0f9d58"/>
+<text x="808.555875873757" y="119" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9771</text>
+<text x="24" y="153" font-family="Arial, sans-serif" font-size="14" fill="#222222">backward_elimination (k=5)</text>
+<rect x="300" y="137" width="497.03" height="21" rx="4" fill="#d97706"/>
+<text x="807.0297562797489" y="153" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9741</text>
+<text x="24" y="187" font-family="Arial, sans-serif" font-size="14" fill="#222222">l1 (k=20)</text>
+<rect x="300" y="171" width="496.50" height="21" rx="4" fill="#c2410c"/>
+<text x="806.497889409108" y="187" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9731</text>
+<text x="24" y="221" font-family="Arial, sans-serif" font-size="14" fill="#222222">info_gain (k=10)</text>
+<rect x="300" y="205" width="494.29" height="21" rx="4" fill="#7c3aed"/>
+<text x="804.2857963214316" y="221" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9687</text>
+<text x="24" y="255" font-family="Arial, sans-serif" font-size="14" fill="#222222">info_gain (k=20)</text>
+<rect x="300" y="239" width="494.15" height="21" rx="4" fill="#b91c1c"/>
+<text x="804.1477230005764" y="255" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9685</text>
+<text x="24" y="289" font-family="Arial, sans-serif" font-size="14" fill="#222222">forward_selection (k=20)</text>
+<rect x="300" y="273" width="494.15" height="21" rx="4" fill="#1f6feb"/>
+<text x="804.1477230005764" y="289" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9685</text>
+<text x="24" y="323" font-family="Arial, sans-serif" font-size="14" fill="#222222">backward_elimination (k=20)</text>
+<rect x="300" y="307" width="493.43" height="21" rx="4" fill="#0f9d58"/>
+<text x="803.429364461135" y="323" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9671</text>
+<text x="24" y="357" font-family="Arial, sans-serif" font-size="14" fill="#222222">backward_elimination (k=10)</text>
+<rect x="300" y="341" width="491.17" height="21" rx="4" fill="#d97706"/>
+<text x="801.1711858686984" y="357" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9626</text>
+<text x="24" y="391" font-family="Arial, sans-serif" font-size="14" fill="#222222">forward_selection (k=5)</text>
+<rect x="300" y="375" width="490.07" height="21" rx="4" fill="#c2410c"/>
+<text x="800.0701221776928" y="391" font-family="Arial, sans-serif" font-size="14" fill="#111111">0.9605</text>
+</svg>
