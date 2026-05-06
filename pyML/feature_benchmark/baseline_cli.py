@@ -1,65 +1,64 @@
 import argparse
 
 
-SELECTOR_CHOICES = [
-    "variance_threshold",
-    "chi2",
-    "info_gain",
-    "forward_selection",
-    "backward_elimination",
-    "rfe",
-    "l1",
-]
-
 MODEL_CHOICES = [
     "random_forest",
-    "svm",
     "xgboost",
 ]
 
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Benchmark feature-selection algorithms on a tabular classification dataset."
+        description="Train full-feature baseline classifiers for a tabular classification dataset."
     )
     parser.add_argument("--csv", required=True, help="Path to the dataset CSV file.")
     parser.add_argument(
         "--output-dir",
-        default="outputs/feature_selection",
+        default="outputs/baseline_models",
         help="Directory where result files will be written.",
-    )
-    parser.add_argument(
-        "--selectors",
-        nargs="+",
-        default=SELECTOR_CHOICES,
-        choices=SELECTOR_CHOICES,
-        help="Feature-selection algorithms to benchmark.",
     )
     parser.add_argument(
         "--models",
         nargs="+",
         default=MODEL_CHOICES,
         choices=MODEL_CHOICES,
-        help="Models used to evaluate each selector.",
+        help="Baseline models to train and compare.",
     )
     parser.add_argument(
-        "--k-values",
-        nargs="+",
+        "--random-search-iterations",
         type=int,
-        default=[10, 20, 30, 50],
-        help="Feature counts to test for selectors that keep the top-k features.",
+        default=12,
+        help="Number of random hyperparameter samples to evaluate per model.",
     )
     parser.add_argument(
-        "--folds",
+        "--validation-size",
+        type=float,
+        default=0.15,
+        help="Fraction of the full dataset reserved for validation.",
+    )
+    parser.add_argument(
+        "--test-size",
+        type=float,
+        default=0.2,
+        help="Fraction of the full dataset reserved for final testing.",
+    )
+    parser.add_argument(
+        "--latency-repeats",
         type=int,
-        default=5,
-        help="Number of stratified cross-validation folds.",
+        default=25,
+        help="Number of repeated prediction passes used to estimate detection latency.",
+    )
+    parser.add_argument(
+        "--top-features",
+        type=int,
+        default=20,
+        help="How many top-ranked features to include in the report preview per model.",
     )
     parser.add_argument(
         "--random-state",
         type=int,
         default=42,
-        help="Random seed for reproducible sampling and training.",
+        help="Random seed for reproducible sampling, splitting, and tuning.",
     )
     parser.add_argument(
         "--sample-size",

@@ -6,7 +6,7 @@ import warnings
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.feature_selection import SelectFromModel, SequentialFeatureSelector, VarianceThreshold, chi2, mutual_info_classif
+from sklearn.feature_selection import RFE, SelectFromModel, SequentialFeatureSelector, VarianceThreshold, chi2, mutual_info_classif
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import f1_score
@@ -203,6 +203,32 @@ def select_via_estimator(
             scoring="f1",
             cv=2,
             n_jobs=1,
+        )
+        selector.fit(X_candidates, y)
+        support = selector.get_support()
+        return [feature for feature, keep in zip(X_candidates.columns.tolist(), support) if keep]
+
+    if selector_name == "rfe":
+        selector_estimator = Pipeline(
+            steps=[
+                ("imputer", SimpleImputer(strategy="median")),
+                ("scaler", StandardScaler()),
+                (
+                    "logistic",
+                    LogisticRegression(
+                        solver="liblinear",
+                        class_weight="balanced",
+                        max_iter=2000,
+                        random_state=random_state,
+                    ),
+                ),
+            ]
+        )
+        selector = RFE(
+            estimator=selector_estimator,
+            n_features_to_select=k,
+            importance_getter="named_steps.logistic.coef_",
+            step=1,
         )
         selector.fit(X_candidates, y)
         support = selector.get_support()
