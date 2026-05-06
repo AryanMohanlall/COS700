@@ -1,0 +1,45 @@
+{
+  "csv_path": "Datasets\\42_API_CALL_FREQUENCY.csv",
+  "delimiter": ",",
+  "target_column": "label",
+  "rows": 3083,
+  "usable_numeric_features": 279,
+  "class_balance": {
+    "class_0": 570,
+    "class_1": 2513
+  },
+  "dropped_identifier_columns": [
+    "Unnamed: 0",
+    "SHA256"
+  ],
+  "dropped_all_nan_columns": [
+    "Sample Name",
+    "category"
+  ],
+  "dropped_constant_columns": [
+    "ReadCabinetState"
+  ],
+  "evaluated_rows": 3083,
+  "evaluated_class_balance": {
+    "class_0": 570,
+    "class_1": 2513
+  },
+  "selectors": [
+    "variance_threshold",
+    "chi2",
+    "info_gain",
+    "rfe",
+    "l1"
+  ],
+  "models": [
+    "random_forest",
+    "svm",
+    "xgboost"
+  ],
+  "folds": 3,
+  "k_values": [
+    10,
+    20,
+    30
+  ]
+}
